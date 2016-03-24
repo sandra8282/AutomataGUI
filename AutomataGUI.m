@@ -111,19 +111,19 @@ elseif RProbSus==1
     set(handles.EdtProbSus,'String',num2str(ProbSus));
 end
 
-b1=str2num(get(handles.EdtBRprod,'String'));
-b2=str2num(get(handles.EdtBRres,'String'));
-b3=str2num(get(handles.EdtBRsus,'String'));
+b1=str2num(get(handles.parasiteB,'String'));
+b2=str2num(get(handles.forbeB,'String'));
+b3=str2num(get(handles.grassB,'String'));
 
-TimeStep=.09;                      % dt: Time step width
+TimeStep=.01;                      % dt: Time step width
 Width=150;                       % Width of lattice
 BirthRate=[b1,b2,b3];         % BirthRate: due to array indexing issue,
                              % BirthRate(i) denotes birth probability of strain (i+1)
-DeathRate = str2num(get(handles.EdtDR,'String'));               % DeathRate: assumed constant for all strains
-SeedRadius = str2num(get(handles.EdtDisp,'String'));             % SeedRadius: denotes radius seeds are dispersed to
-ColStrength = str2num(get(handles.EdtPS,'String'));             % ColStrength: Proportionality constant for impact of colicin-
+DeathRate = str2num(get(handles.deathR,'String'));               % DeathRate: assumed constant for all strains
+SeedRadius = str2num(get(handles.dispRad,'String'));             % SeedRadius: denotes radius seeds are dispersed to
+ColStrength = str2num(get(handles.parStrength,'String'));             % ColStrength: Proportionality constant for impact of colicin-
                              % producing strain on colicin-susceptible strain
-NumTimeStep=500;                   % Step: Number of time steps to perform
+NumTimeStep=20;                   % Step: Number of time steps to perform
 
 
 Bound = true;
@@ -281,6 +281,9 @@ function EdtBRsus_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % Hints: get(hObject,'String') returns contents of EdtBRsus as text
 %        str2double(get(hObject,'String')) returns contents of EdtBRsus as a double
+slideVal = get(handles.EdtBRsus,'Value');
+assignin('base','slideVal',slideVal);
+set(handles.grassB,'String',num2str(slideVal));
 
 
 % --- Executes during object creation, after setting all properties.
@@ -303,7 +306,9 @@ function EdtBRres_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % Hints: get(hObject,'String') returns contents of EdtBRres as text
 %        str2double(get(hObject,'String')) returns contents of EdtBRres as a double
-
+slideVal = get(handles.EdtBRres,'Value');
+assignin('base','slideVal',slideVal);
+set(handles.forbeB,'String',num2str(slideVal));
 
 % --- Executes during object creation, after setting all properties.
 function EdtBRres_CreateFcn(hObject, eventdata, handles)
@@ -325,7 +330,9 @@ function EdtBRprod_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % Hints: get(hObject,'String') returns contents of EdtBRprod as text
 %        str2double(get(hObject,'String')) returns contents of EdtBRprod as a double
-
+slideVal = get(handles.EdtBRprod,'Value');
+assignin('base','slideVal',slideVal);
+set(handles.parasiteB,'String',num2str(slideVal));
 
 % --- Executes during object creation, after setting all properties.
 function EdtBRprod_CreateFcn(hObject, eventdata, handles)
@@ -348,7 +355,9 @@ function EdtDR_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of EdtDR as text
 %        str2double(get(hObject,'String')) returns contents of EdtDR as a double
-
+slideVal = get(handles.EdtDR,'Value');
+assignin('base','slideVal',slideVal);
+set(handles.deathR,'String',num2str(slideVal));
 
 % --- Executes during object creation, after setting all properties.
 function EdtDR_CreateFcn(hObject, eventdata, handles)
@@ -371,7 +380,9 @@ function EdtDisp_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of EdtDisp as text
 %        str2double(get(hObject,'String')) returns contents of EdtDisp as a double
-
+slideVal = get(handles.EdtDisp,'Value');
+assignin('base','slideVal',slideVal);
+set(handles.dispRad,'String',num2str(slideVal));
 
 % --- Executes during object creation, after setting all properties.
 function EdtDisp_CreateFcn(hObject, eventdata, handles)
@@ -394,6 +405,10 @@ function EdtPS_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of EdtPS as text
 %        str2double(get(hObject,'String')) returns contents of EdtPS as a double
+slideVal = get(handles.EdtPS,'Value');
+assignin('base','slideVal',slideVal);
+set(handles.parStrength,'String',num2str(slideVal));
+
 
 
 % --- Executes during object creation, after setting all properties.
